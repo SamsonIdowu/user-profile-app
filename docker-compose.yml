@@ -1,14 +1,6 @@
 version: '3'
+
 services:
-  my-app:
-    build:
-      context: ./
-      dockerfile: Dockerfile
-      args:
-        image_name: ls-app
-    image: ls-app
-    ports:
-      - 3000:3000
   mongodb:
     image: mongo
     ports:
@@ -29,6 +21,19 @@ services:
      - ME_CONFIG_MONGODB_SERVER=mongodb
     depends_on:
      - "mongodb"
+  #my-app:
+  #  build: .
+  #    args:
+  #      image_name: ls-app
+  #  image: ls-app
+  #  ports:
+  #   - 5000:3000
+  #  depends_on:
+  #   - "mongo-express"
 volumes:
   mongo-data:
     driver: local
+
+networks:
+  custom_network:
+    driver: bridge

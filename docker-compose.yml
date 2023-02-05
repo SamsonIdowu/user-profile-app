@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 
 services:
   mongodb:
@@ -29,8 +29,6 @@ services:
     image: ls-app
     ports:
      - 5000:3000
-    environment:
-     - MONGO_URI=mongodb://admin:password@mongodb:27017/LS_Lab_DB
 volumes:
   mongo-data:
     driver: local

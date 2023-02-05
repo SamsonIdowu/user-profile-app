@@ -21,19 +21,17 @@ services:
      - ME_CONFIG_MONGODB_SERVER=mongodb
     depends_on:
      - "mongodb"
-  #my-app:
-  #  build: .
-  #    args:
-  #      image_name: ls-app
-  #  image: ls-app
-  #  ports:
-  #   - 5000:3000
-  #  depends_on:
-  #   - "mongo-express"
+  my-app:
+    build:
+      context: .
+      args:
+        image_name: ls-app
+    image: ls-app
+    ports:
+     - 5000:3000
+    environment:
+     - MONGO_URI=mongodb://admin:password@mongodb:27017/LS_Lab_DB
 volumes:
   mongo-data:
     driver: local
 
-networks:
-  custom_network:
-    driver: bridge

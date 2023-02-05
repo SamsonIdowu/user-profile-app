@@ -1,9 +1,14 @@
 version: '3'
 services:
-  # my-app:
-    # image: ${docker-registry}/my-app:1.0
-    # ports:
-     # - 3000:3000
+   my-app:
+     build:
+        context: ./container_a
+        dockerfile: Dockerfile
+          args:
+             image_name: ls-app
+     image: ls-app
+     ports:
+      - 3000:3000
   mongodb:
     image: mongo
     ports:

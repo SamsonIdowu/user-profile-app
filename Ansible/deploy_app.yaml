@@ -1,0 +1,31 @@
+---
+- name: Deploy Git, Docker, and Docker Compose
+  hosts: 34.234.166.92
+  become: true
+  tasks:
+    - name: Update apt repository and cache
+      apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+    - name: Install Git, Docker, and Compose
+      apt:
+        pkg:
+          - git
+          - docker-compose
+          - docker
+- name: Clone Git repository
+  hosts: 34.234.166.92
+  become: true
+  tasks:
+    - name: Remove previous repository
+      ansible.builtin.command: "true"
+      args:
+        removes: /home/ubuntu/LS-Lab_2
+    - name: Clone Git Repository
+      git: repo=https://github.com/Rolly-M/LS-Lab_2.git dest=/home/ubuntu/LS-Lab_2
+- name: Running the different containers
+  hosts: 34.234.166.92
+  become: true
+  tasks:
+    - name: Stop previous container exixtence
+      command: docker-compose -f /home/ubuntu/LS-Lab_2/docker-compose.yml down -v
+    - name: Run Docker Compose
+      command: docker-compose -f /home/ubuntu/LS-Lab_2/docker-compose.yml up --build -d

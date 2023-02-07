@@ -7,3 +7,5 @@ This app shows a simple user profile app set up using
 
 
 All components are docker-based
+Thanks
+

@@ -4,8 +4,8 @@ services:
     build:
       context: .
       args:
-        image_name: ls-app
-    image: ls-app
+        image_name: flypitch/ls-app
+    image: flypitch/ls-app
     ports:
      - 3000:3000
   mongodb:

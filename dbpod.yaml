@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mongo-db-pod
+  labels:
+    app: profile-app
+spec:
+  containers:
+  - name: mongo-db-container
+    image: mongo:latest
+    env:
+    - name: MONGO_INITDB_ROOT_USERNAME
+      value: admin
+    - name: MONGO_INITDB_ROOT_PASSWORD
+      value: mypassword
+    ports:
+    - containerPort: 27017

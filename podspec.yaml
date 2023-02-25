@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: profile-app
+  labels:
+    app: profile-app
+spec:
+  containers:
+  - name: profile-app-container
+    image: profile-app-image:latest
+    ports:
+    - containerPort: 3000

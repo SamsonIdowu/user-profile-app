@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: profile-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: profile-app
+  template:
+    metadata:
+      labels:
+        app: profile-app
+    spec:
+      containers:
+      - name: profile-app-container
+        image: samsonidowu/profile-app-image:latest
+        ports:
+        - containerPort: 3000
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: profile-db
+  template:
+    metadata:
+      labels:
+        app: profile-db
+    spec:
+      containers:
+      - name: mongo-db-container
+        image: mongo:latest
+        ports:
+        - containerPort: 27017

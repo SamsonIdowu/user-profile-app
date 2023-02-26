@@ -9,7 +9,7 @@ spec:
     - name: profile-app 
       port: 3000
       targetPort: 3000
-  type: NodePort
+
 ---
 
 apiVersion: v1
@@ -23,4 +23,18 @@ spec:
     - name: profile-db
       port: 27017
       targetPort: 27017
-  type: NodePort
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: lb-service
+spec:
+  selector:
+    app: profile-app
+  ports:
+  - name: http
+    port: 3000
+    targetPort: 3000
+  type: LoadBalancer

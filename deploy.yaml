@@ -17,7 +17,18 @@ spec:
         image: samsonidowu/profile-app-image:latest
         ports:
         - containerPort: 3000
-
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-db-deployment
 spec:
   replicas: 1
   selector:
@@ -27,9 +38,9 @@ spec:
     metadata:
       labels:
         app: profile-db
-    spec:
       containers:
       - name: mongo-db-container
         image: mongo:latest
         ports:
         - containerPort: 27017
+      restartPolicy: Always

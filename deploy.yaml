@@ -17,6 +17,7 @@ spec:
         image: samsonidowu/profile-app-image:latest
         ports:
         - containerPort: 3000
+# Resource Allocation:         
         resources:
           requests:
             cpu: 100m
@@ -24,7 +25,22 @@ spec:
           limits:
             cpu: 500m
             memory: 512Mi
+# configMap Connection: 
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: mongo-db-configmap
+              key: MONGO_USERNAME
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: mongo-db-configmap
+              key: MONGO_PASSWORD
+        - name: 
+
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -44,3 +60,15 @@ spec:
         ports:
         - containerPort: 27017
       restartPolicy: Always
+# Defining Environment Variables:
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: mongo-db-configmap
+              key: MONGO_USERNAME
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: mongo-db-configmap
+              key: MONGO_PASSWORD

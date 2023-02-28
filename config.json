@@ -1,6 +1,6 @@
 {
-    "MONGO_INITDB_ROOT_USERNAME": "admin",
-    "MONGO_INITDB_ROOT_PASSWORD": "password",
-    "MONGO_DB_ADD": "db-service.default.svc.cluster.local"
-    "mongo_database": "profile-db"
-   }
+ "MONGO_INITDB_ROOT_USERNAME": "admin",
+ "MONGO_INITDB_ROOT_PASSWORD": "password",
+ "MONGO_DB_ADD": "db-service.default.svc.cluster.local"
+ "mongo_database": "profile-db"
+}

@@ -17,27 +17,26 @@ spec:
         image: samsonidowu/profile-app-image:latest
         ports:
         - containerPort: 3000
-# Resource Allocation:         
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: 500m
-            memory: 512Mi
-# configMap Connection: 
+        # environment variable
         env:
-        - name: MONGO_INITDB_ROOT_USERNAME
-          valueFrom:
-            configMapKeyRef:
-              name: mongo-db-configmap
-              key: MONGO_USERNAME
-        - name: MONGO_INITDB_ROOT_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: mongo-db-configmap
-              key: MONGO_PASSWORD
-
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: profile-app-secret
+                key: username
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: profile-app-secret
+                key: password
+        # Volume Mount
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: mongo-db-configmap
 
 ---
 
@@ -60,16 +59,16 @@ spec:
         image: mongo:latest
         ports:
         - containerPort: 27017
-      restartPolicy: Always
-# Defining Environment Variables:
+        # environment variable
         env:
-        - name: MONGO_INITDB_ROOT_USERNAME
-          valueFrom:
-            configMapKeyRef:
-              name: mongo-db-configmap
-              key: MONGO_USERNAME
-        - name: MONGO_INITDB_ROOT_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: mongo-db-configmap
-              key: MONGO_PASSWORD
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: profile-app-secret
+                key: username
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: profile-app-secret
+                key: password
+      restartPolicy: Always

@@ -34,9 +34,9 @@ spec:
         - name: config-volume
           mountPath: /app/config
       volumes:
-        - name: config-volume
-          configMap:
-            name: mongo-db-configmap
+      - name: config-volume
+        secret:
+          secretName: profile-app-secret
 
 ---
 
@@ -55,20 +55,19 @@ spec:
         app: profile-db
     spec:
       containers:
-      - name: mongo-db-container
-        image: mongo:latest
-        ports:
-        - containerPort: 27017
-        # environment variable
-        env:
-          - name: MONGO_INITDB_ROOT_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: profile-app-secret
-                key: username
-          - name: MONGO_INITDB_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: profile-app-secret
-                key: password
+        - name: mongo-db-container
+          image: mongo:latest
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: profile-app-secret
+                  key: username
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: profile-app-secret
+                  key: password
       restartPolicy: Always

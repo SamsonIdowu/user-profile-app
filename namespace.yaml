@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app10
+  namespace: sam10
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app10
+  template:
+    metadata:
+      labels:
+        app: app10
+    spec:
+      containers:
+      - name: app10
+        image: samsonidowu/profile-app-image:kube
+        ports:
+        - containerPort: 3000
+    
+---
+    
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app11
+  namespace: sam10
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app11
+  template:
+    metadata:
+      labels:
+        app: app11
+    spec:
+      containers:
+      - name: app11
+        image: samsonidowu/profile-app-image:lite
+        ports:
+        - containerPort: 3000

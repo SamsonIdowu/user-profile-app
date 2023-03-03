@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: test-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: job-container
+        image: ubuntu:lunar
+        command: 
+         - sh
+         - -c
+         - |
+           apt-get update && apt-get install -y curl
+           curl -O https://github.com/SamsonIdowu/user-profile-app/blob/main/Terraform/main.tf
+           cp main.tf /data/profile-db-pv/main.tf
+        volumeMounts:
+        - name: profile-db-pv
+          mountPath: /data/profile-db-pv
+      restartPolicy: Never
+      volumes:
+      - name: profile-db-pv
+        persistentVolumeClaim:
+          claimName: profile-db-pvc
+  backoffLimit: 3

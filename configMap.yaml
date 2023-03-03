@@ -6,5 +6,3 @@ data:
   MONGO_USERNAME: admin
   MONGO_PASSWORD: password
   db_server: db-service
-
-

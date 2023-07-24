@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: apps/v2
 kind: Deployment
 metadata:
   name: profile-app-deployment
@@ -47,7 +47,7 @@ resources:
 
 ---
 
-apiVersion: apps/v1
+apiVersion: apps/v2
 kind: Deployment
 metadata:
   name: mongo-db-deployment
